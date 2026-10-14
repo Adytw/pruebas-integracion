@@ -1,0 +1,24 @@
+name: Pruebas de integracion
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:   # permite correrlo con un boton
+
+jobs:
+  integracion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar pruebas de integracion
+        run: pytest -v
